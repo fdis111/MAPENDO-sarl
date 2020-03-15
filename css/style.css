@@ -1,0 +1,26 @@
+body
+{
+    background-color: #ebebeb !important;
+}
+h1
+{
+    text-align: center;
+    margin-top: 50px !important;
+}
+h2
+{
+    text-align: center;
+}
+.page
+{
+    width: 70%;
+    margin: auto;
+}
+#formulaire
+{
+    display: none;
+    width: 50%;
+    margin: auto;
+    border: rgba(0, 0, 0, 0.425) solid 1px;
+    padding: 10px;
+}

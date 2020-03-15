@@ -4,10 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>MAPENDO sarl</title>
+    <link rel="stylesheet" href="css/semantic.min.css">
+    <title>Mapendo Sarl</title>
 </head>
 <body>
-    
+    <div class="page">
+        <h1>MAPENDO sarl</h1>
+        <div id="formulaire">
+            <form action="#" method="get" >
+                <h2>Ajouter un empoyer</h2>
+                <div class="ui mini form">
+                      <div class="field">
+                        <label>Nom</label>
+                        <input placeholder="Nom" name="nom" id="nom" type="text">
+                      </div>
+                      <div class="field">
+                        <label>Prenom</label>
+                        <input placeholder="Prenom" name="Prenom" id="Prenom" type="text">
+                      </div>
+                      <div class="field">
+                        <label>Email</label>
+                        <input placeholder="Email" name="Email" id="email" type="email">
+                      </div>
+                      <div class="field">
+                        <label>Age</label>
+                        <input placeholder="age" name="age" id="age" type="number">
+                      </div>
+                      <div class="field">
+                        <label>Poste</label>
+                        <input placeholder="Poste" name="Poste" id="Poste" type="text">
+                      </div>
+                      <div class="field">
+                        <label>Numéro de téléphone</label>
+                        <input placeholder="Numéro de téléphone" name="numero" id="numero" type="tel">
+                      </div>
+                      
+                      <div class="field">
+                        <label>Statut marital</label>
+                        <SELECT name="Statut" size="1">
+                            <OPTION>Celibataire</OPTION>
+                            <OPTION >Marié </OPTION>
+                        </SELECT>   
+                      </div>
+                      <div class="field">
+                        <label>Pays d'origine</label>
+                        <input placeholder="Pays d'origine" name="pays" id="pays" type="text">
+                      </div>
+                    <div >
+                        <button class="ui primary button" id="AjouterEmployer" type="submit" >Ajouter</button>
+                        <button class="ui red button" id="anuler" type="reset" >Annuler</button>
+                    </div>
+                    <div >
+
+                    </div>
+                  </div>
+            </form>
+        </div>
+       
+        <table class="ui celled table">
+            <tr>
+                <button class="ui primary button" id="Ajouter">Ajouter</button>
+            </tr>
+            <thead>
+              <tr>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>Email</th>
+                  <th>Age</th>
+                  <th>Poste</th>
+                  <th>Numéro de téléphone</th>
+                  <th>Statut marital</th>
+                  <th>Pays d'origine</th>
+              </tr>
+          </thead>
+            <tbody>
+             
+            </tbody>
+          </table>
+    </div>
     <script src="js/script.js"></script>
+    <script src="js/all.min.js"></script>
 </body>
 </html>
