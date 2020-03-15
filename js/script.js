@@ -32,6 +32,3 @@ form.addEventListener("submit", function(e)
     formAjouter.style.display = "none";
     btnAjouter.style.display = "block";
 })
-
-
-
