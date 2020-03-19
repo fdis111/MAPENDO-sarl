@@ -24,3 +24,9 @@ h2
     border: rgba(0, 0, 0, 0.425) solid 1px;
     padding: 10px;
 }
+#erreur
+{
+    color: white;
+    background-color: rgba(255, 0, 0, 0.356);
+    text-align: center;
+}

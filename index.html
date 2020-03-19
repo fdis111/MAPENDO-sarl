@@ -10,9 +10,12 @@
 <body>
     <div class="page">
         <h1>MAPENDO sarl</h1>
+        
         <div id="formulaire">
+          
             <form action="#" method="get" >
                 <h2>Ajouter un empoyer</h2>
+                <div id="erreur"></div>
                 <div class="ui mini form">
                       <div class="field">
                         <label>Nom</label>
@@ -51,8 +54,8 @@
                         <input placeholder="Pays d'origine" name="pays" id="pays" type="text">
                       </div>
                     <div >
-                        <button class="ui primary button" id="AjouterEmployer" type="submit" >Ajouter</button>
-                        <button class="ui red button" id="anuler" type="reset" >Annuler</button>
+                        <button class="ui primary button" id="AjouterEmployer" type="submit" value="ajouter" name="ajouter">Ajouter</button>
+                        <button class="ui red button" id="anuler" type="reset" value="anuler" name="anuler">Annuler</button>
                     </div>
                     <div >
 

@@ -18,17 +18,50 @@ btnanuler.addEventListener("click", function(e)
 
 form.addEventListener("submit", function(e)
 {  
+    //alert("merci");
+   //console.log(this.elements);
+   let tr = document.createElement("tr")
+   for (ele of this.elements)
+   {
+       //console.log(ele.name);
+       if(ele.name != "ajouter" && ele.name != "anuler")
+       {
+           if (ele.name == "age") 
+           {
+                let entre = document.createElement("th");
+                entre.textContent = ele.value;
+                tr.append(entre);   
+           }
+           else
+           {
+               if (ele.value != "") 
+               {
+                    let entre = document.createElement("th");
+                    entre.textContent = ele.value;
+                    document.querySelector("#erreur").innerHTML = "";
+                    tr.append(entre);                   
+               }
+               else
+               {
+                   document.querySelector("#erreur").innerHTML = `<p> remplissez  le champ ${ele.name}`;
+                   tr.innerHTML = "";
+                   break;
+                   
+               }
+           }
+       }
+
+       
+   } 
+   //console.log(tr);
+   
+   if(tr.childElementCount) {
+       document.querySelector("tbody").append(tr);
+       btnAjouter.style.display = "block";
+       formAjouter.style.display = "none";
+       this.reset();
+   }
+  e.preventDefault();
+   
     
-    let ligne = document.createElement("tr"); 
-    for (champ of form.elements)
-    {
-        let entre = document.createElement("th");
-        entre.textContent = champ.value;
-        ligne.append(entre);
-    }
-    document.querySelector("tbody").append(ligne)
-    e.preventDefault();
-    e.target.reset();
-    formAjouter.style.display = "none";
-    btnAjouter.style.display = "block";
 })
