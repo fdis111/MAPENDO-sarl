@@ -89,7 +89,8 @@ form.addEventListener("submit", function(e)
                 // modale1.style.display = "none";
                 formAjouter.style.display = "block";
                     modale1.style.display = "none";
-                    btnanuler.textContent = "Supprimer"
+                    btnanuler.textContent = "Supprimer";
+                    btnAjouter.style.display = "none";
                     document.querySelector("tbody").remove(obj.parentNode);
                 })
                 btnanuler.textContent = "Anuler"
