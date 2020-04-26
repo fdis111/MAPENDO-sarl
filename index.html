@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,28 +23,27 @@
                       </div>
                       <div class="field">
                         <label>Prenom</label>
-                        <input placeholder="Prenom" name="Prenom" id="Prenom" type="text">
+                        <input placeholder="prenom" name="prenom" id="prenom" type="text">
                       </div>
                       <div class="field">
                         <label>Email</label>
-                        <input placeholder="Email" name="Email" id="email" type="email">
+                        <input placeholder="email" name="email" id="email" type="email">
                       </div>
-                      <div class="field">
-                        <label>Age</label>
-                        <input placeholder="age" name="age" id="age" type="number">
-                      </div>
+                      <!-- <div class="field">
+                        <label for="matricuke">Matricule</label>
+                        <input type="text" placeholder="Matricule" name="matricule" id="matricule">
+                      </div> -->
                       <div class="field">
                         <label>Poste</label>
-                        <input placeholder="Poste" name="Poste" id="Poste" type="text">
+                        <input placeholder="Poste" name="poste" id="poste" type="text">
                       </div>
                       <div class="field">
-                        <label>Numéro de téléphone</label>
-                        <input placeholder="Numéro de téléphone" name="numero" id="numero" type="tel">
+                        <label for="telephone">Numéro de telephone</label>
+                        <input type="tel" placeholder="Numéro de télephone" name="telephone" id="telephone" required>
                       </div>
-                      
                       <div class="field">
-                        <label>Statut marital</label>
-                        <SELECT name="Statut" size="1">
+                        <label for="status">Statut marital</label>
+                        <SELECT id="status" name="statut" size="1">
                             <OPTION>Celibataire</OPTION>
                             <OPTION >Marié </OPTION>
                         </SELECT>   
@@ -57,14 +56,14 @@
                         <button class="ui primary button" id="AjouterEmployer" type="submit" value="ajouter" name="ajouter">Ajouter</button>
                         <button class="ui red button" id="anuler" type="reset" value="anuler" name="anuler">Annuler</button>
                     </div>
-                    <div >
+                    <div>
 
                     </div>
-                  </div>
+                  </div>   
             </form>
         </div>
        
-        <table class="ui celled table">
+        <table class="ui striped table celled table">
             <tr>
                 <button class="ui primary button" id="Ajouter">Ajouter</button>
             </tr>
@@ -73,16 +72,16 @@
                   <th>Nom</th>
                   <th>Prenom</th>
                   <th>Email</th>
-                  <th>Age</th>
+                  <th>Matricule</th>
                   <th>Poste</th>
-                  <th>Numéro de téléphone</th>
+                  <th>Télephone</th>
                   <th>Statut marital</th>
                   <th>Pays d'origine</th>
               </tr>
           </thead>
-            <tbody>
+          <tbody id="tbody">
              
-            </tbody>
+          </tbody>
           </table>
           <!-- modal-Box -->
           
