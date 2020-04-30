@@ -5,7 +5,7 @@ const formulaire = document.querySelector("form");
 const blockFormulaire = document.querySelector("#formulaire");
 let employerInfos = {};
 const messageErreur = document.querySelector("#erreur");
-
+const tableau = document.querySelector("tbody");
 // --------------------------------------------------------------------------------------------------------------------------------
 
 // les evenements de base
@@ -18,10 +18,10 @@ btnAjouter.addEventListener("click", function()
 
 btnanuler.addEventListener("click", function()
 {
-    blockFormulaire.style.display = "none"
-    btnAjouter.style.display = "block";    
+    blockFormulaire.style.display = "none";
+    btnAjouter.style.display = "block";
+    // formulaire.reset();
 })
-
 
 
 // les fonctions 
@@ -35,6 +35,20 @@ const tailleObjet = function(obj) {
     return taille;
 };
 
+const preremplirFormulaire = function(data)
+{
+      formulaire.elements.nom.value = data.nom;
+      formulaire.elements.prenom.value = data.prenom;
+      formulaire.elements.email.value = data.email;
+      formulaire.elements.poste.value = data.poste;
+      formulaire.elements.telephone.value = data.numeroTelephone;
+      // form.elements.statut.value = element.estMarie == true ? "Marié(e)" : "Celibataire";
+      formulaire.elements.pays.value = data.pays;
+      formulaire.elements._id.value = data._id;
+      formulaire.elements.ajouter.value = "Modifier";
+      blockFormulaire.style.display = "block";
+
+}
 
 // -------------------------------------------------------------------------------------------------------------------------------------
 // les requtes ajax
@@ -43,6 +57,7 @@ const tailleObjet = function(obj) {
 // 1 get all employers
 const getEmployers = async function () 
 {
+    tableau.innerHTML = ""
     try 
     {
         const url = "http://167.71.45.243:4000/api/employes?api_key=kewilah";
@@ -50,7 +65,49 @@ const getEmployers = async function ()
         if (response.ok) 
         {
             const data = await response.json();
-            console.log(data);
+        
+            for (user of data)
+            {
+                const ligne = document.createElement("tr");
+
+                ligne.innerHTML = `
+                <td>${user.nom}</td>
+                <td>${user.prenom}</td>
+                <td>${user.email}</td>
+                <td>${user._id}</td>
+                <td>${user.poste}</td>
+                <td>${user.numeroTelephone ? user.numeroTelephone : ""}</td>
+                <td>${user.estMarie == true ? "Marié(e)" : "Celibataire"}</td>
+                <td>${user.pays}</td>
+                <td><button class="ui green button modifier" id="edit-${user._id}">Modifier</button></td>
+                <td><button class="ui red button supprimer" id="delete-${user._id}">Supprimer</button></td>`;
+                tableau.appendChild(ligne);
+                const supprimer = document.getElementById(`delete-${user._id}`);
+                const modifier = document.getElementById(`edit-${user._id}`)
+                const id = user._id;
+                const EmployerAmodifier = user;
+                // const modifier = document.getElementById(`edit-${user._id}`);
+                supprimer.addEventListener("click", function(e)
+                {
+                    e.preventDefault();
+                    const confirmer = confirm("voulez vous supprimer?");
+                    if (confirmer) 
+                    {
+                        deleteEmployer(id);
+                    }
+                });
+                modifier.addEventListener("click", function(e)
+                {
+                    e.preventDefault();
+                    console.log(EmployerAmodifier);
+                    
+                    preremplirFormulaire(EmployerAmodifier);
+                })
+            }
+             
+
+            
+            
         }  
     } 
     catch (error) 
@@ -61,9 +118,11 @@ const getEmployers = async function ()
 
 getEmployers();
 
+
 // 2 get one employer
 const getOneEmployer = async function (employerId)
 {
+
     try
     {
         const url = `http://167.71.45.243:4000/api/employes/${employerId}?api_key=kewilah`;
@@ -165,6 +224,7 @@ const deleteEmployer = async function (employerId)
         {
             const data = await response.json();
             console.log(data);
+            getEmployers()
         }  
     } 
     catch (error) 
@@ -257,6 +317,18 @@ formulaire.addEventListener("submit", function (e)
     const tailleEmployerInfos = tailleObjet(employerInfos);
     if (tailleEmployerInfos) 
     {
+        if (employerInfos._id == "")
+        {
+            addEmployer(employerInfos);
+        }
+        else
+        {
+            updateEmployer(employerInfos._id, employerInfos);
+            // console.log("tijjffjjfjff");
+            formulaire.reset()
+            
+        }
+        
         console.log("formulaire envoyer");
         formulaire.reset();
         blockFormulaire.style.display = "none";
