@@ -6,15 +6,17 @@ const btnanuler = document.querySelector("#anuler");
 const form = document.querySelector("form");
 const modale1 = document.querySelector("#modale");
 const quiter = document.querySelector("#quiter");
+const supprimer = document.querySelector("#suprimer");
+const modifier = document.querySelector("#modifier");
+let infos =  {};
 
 
-const cacher = (obj1, obj2) => {
-  obj1.style.display = "none";
-  obj2.style.display = "block";
-}
+
+
 
 
 btnAjouter.addEventListener("click", e => {
+  form.elements.ajouter.value = "Ajouter";
   cacher(btnAjouter, formAjouter);
   form.reset();
 });
@@ -24,7 +26,116 @@ btnanuler.addEventListener("click", e => {
   cacher(formAjouter, btnAjouter);
   form.reset();
 })
-const users = async () =>{
+
+
+
+
+
+
+
+// Fonctions
+
+const cacher = (obj1, obj2) => {
+  obj1.style.display = "none";
+  obj2.style.display = "block";
+}
+
+
+const addToListe = element => {
+  let a = document.createElement("tr");
+  
+  a.innerHTML = `
+          <td>${element.nom}</td>
+          <td>${element.prenom}</td>
+          <td>${element.email}</td>
+          <td>${element._id}</td>
+          <td>${element.poste}</td>
+          <td>${element.numeroTelephone ? user.numeroTelephone : ""}</td>
+          <td>${element.estMarie == true ? "Marié(e)" : "Celibataire"}</td>
+          <td>${element.pays}</td>`;
+
+  document.querySelector("tbody").append(a);  
+  a.addEventListener("click", () => {
+    console.log("Ok");
+    modale1.style.display = "flex";
+    supprimer.addEventListener("click", () => {
+      // deleteUser(element);
+      console.log(element);
+      element = {}
+      getOne(element._id)
+      modale1.style.display = "none";
+    })
+    modifier.addEventListener("click", () => {
+      // console.log(element);
+      form.elements.nom.value = element.nom;
+      form.elements.prenom.value = element.prenom;
+      form.elements.email.value = element.email;
+      form.elements.poste.value = element.poste;
+      form.elements.telephone.value = element.numeroTelephone;
+      // form.elements.statut.value = element.estMarie == true ? "Marié(e)" : "Celibataire";
+      form.elements.pays.value = element.pays;
+      form.elements._id.value = element._id;
+      form.elements.ajouter.value = "Modifier";
+      formAjouter.style.display = "block"
+      modale1.style.display = "none";
+
+
+      // element = {};
+    })
+    
+  })
+
+}
+
+
+const deleteUser = async (user) => {
+  try 
+  {
+    const url = `http://167.71.45.243:4000/api/employes/${user._id}?api_key=kewilah`;
+    const response = await fetch(url, {
+    method: "DELETE",
+    });
+    if(response.ok)
+    {
+      const data = await response.json();
+      getUsers();  
+      console.log("nous avons supprimer " + user.nom );
+      
+    }
+    else
+    {
+      console.log(`Nous avons rencotrer une erreure de type: ${response.status}`);
+    
+    }  
+  } 
+  catch (e) 
+  {
+    console.log(e);
+    
+  }
+
+}
+
+
+
+
+// supprimer.addEventListener("click", () => {
+//   // deleteUser(element);
+//   // console.log(element);
+  
+//   getOne(element._id);
+
+  
+  
+//   modale1.style.display = "none";
+// })
+
+
+
+
+
+const getUsers = async () =>{
+ document.querySelector("tbody").innerHTML = "";
  try {
   const response = await fetch("http://167.71.45.243:4000/api/employes?api_key=kewilah");
   if(response.ok)
@@ -32,39 +143,118 @@ const users = async () =>{
     const data = await response.json();
       for (user of data)
       {
-        let a = document.createElement("tr");
-        a.innerHTML = `
-                <th>${user.nom}</th>
-                <th>${user.prenom}</th>
-                <th>${user.email}</th>
-                <th>${user._id}</th>
-                <th>${user.poste}</th>
-                <th>${user.numeroTelephone ? user.numeroTelephone : ""}
-                <th>${user.estMarie == true ? "Marié(e)" : "Celibataire"}
-                <th>${user.pays}</th>`;
-        document.querySelector("tbody").append(a);
+
+        addToListe(user)  
+
       }
      
   }
   else
   {
     console.log(`Nous avons rencotrer une erreure de type: ${response.status}`);
-    
   }
  } catch (e) 
  {
-  console.error(e);  
+  console.log(e);  
  }
-  
 }
 
 
-users()
+const getOne = async (userId) => {
+  document.querySelector("tbody").innerHTML = "";
+  const url = `http://167.71.45.243:4000/api/employes/${userId}?api_key=kewilah`;
+  try
+  {
+    const response = await fetch(url);
+    if (response.ok) 
+    {
+      const data = await response.json();
+      console.log(data);
+      getUsers()
+      // deleteUser(data)
+    }
+  }
+  catch (e)
+  {
+    console.log(e);
+    
+  }
+}
 
+
+
+
+
+
+const postUser = async (infos) => {
+  const body = { nom: infos.nom, prenom: infos.prenom, estMarie: infos.estMarie, pays: infos.pays, email: infos.email, poste: infos.poste, numeroTelephone: infos.numeroTelephone};
+  const url = `http://167.71.45.243:4000/api/employes?api_key=kewilah`
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: 
+      {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    });
+
+    if(response.ok)
+    {
+      const data = await response.json();
+      getUsers();
+      
+    }
+    else
+    {
+      console.log(`Nous avons rencotrer une erreure de type: ${response.status}`);
+      
+    }
+   } catch (e) 
+   {
+    console.error(e);  
+   }
+}
+
+
+const updateUser = async (userData) => {
+  const body = { nom: userData.nom, prenom: userData.prenom, estMarie: userData.estMarie, pays: userData.pays, email: userData.email, poste: userData.poste, numeroTelephone: userData.numeroTelephone};
+  const url = `http://167.71.45.243:4000/api/employes/${userData._id}?api_key=kewilah`;
+  try 
+  {
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: 
+      {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    });
+
+    if(response.ok)
+    {
+      // const data = await response.json();
+      getUsers();  
+
+    }  
+    else
+    {
+      console.log(`Nous avons rencotrer une erreure de type: ${response.status}`);
+    }
+  } 
+  catch 
+  (e)
+  {
+    console.error(e);
+    
+  }
+}
+
+getUsers()
 
 form.addEventListener("submit", e => {
   let tr = document.createElement("tr");
-  let infos =  {};
+  
   for (ele of form.elements) {
     if (ele.name != "ajouter" && ele.name != "anuler") {
       if (ele.name == "nom" || ele.name == "prenom") 
@@ -91,7 +281,6 @@ form.addEventListener("submit", e => {
             tr.innerHTML = "";
             break;
         }
-       
       } 
       else if(ele.name == "telephone")
       {
@@ -151,40 +340,22 @@ form.addEventListener("submit", e => {
     }
   }
   if (tr.childElementCount) {
-    // document.querySelector("tbody").append(tr);
-    // console.log(infos);
-    const postUser = async (infos) => {
-      try {
-        const response = await fetch("http://167.71.45.243:4000/api/employes?api_key=kewilah", {
-          method: "POST",
-          headers: 
-          {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(infos)
-        });
-
-        if(response.ok)
-        {
-          const data = await response.json();
-          users();
-          
-        }
-        else
-        {
-          console.log(`Nous avons rencotrer une erreure de type: ${response.status}`);
-          
-        }
-       } catch (e) 
-       {
-        console.error(e);  
-       }
+    if (form.elements.ajouter.value === "Modifier") {
+      // console.log("ca Commence a marcher");
+      // console.log(infos);
+      updateUser(infos);
+      infos = {};
     }
-    postUser(infos)
+    else
+    {
+      // console.log("ca ne marche pas");
+      // console.log(infos);
+      postUser(infos);
+    }
     cacher(formAjouter, btnAjouter)
     form.reset();
-    
   }
+
   e.preventDefault();
 });
 quiter.addEventListener("click", e => {

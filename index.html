@@ -12,11 +12,13 @@
         <h1>MAPENDO sarl</h1>
         
         <div id="formulaire">
-          
             <form action="#" method="get" >
                 <h2>Ajouter un empoyer</h2>
                 <div id="erreur"></div>
                 <div class="ui mini form">
+                      <!-- <div class="field">
+                        <input type="hidden" id="_id" name="_id" value="3487">
+                      </div> -->
                       <div class="field">
                         <label>Nom</label>
                         <input placeholder="Nom" name="nom" id="nom" type="text">
@@ -29,10 +31,6 @@
                         <label>Email</label>
                         <input placeholder="email" name="email" id="email" type="email">
                       </div>
-                      <!-- <div class="field">
-                        <label for="matricuke">Matricule</label>
-                        <input type="text" placeholder="Matricule" name="matricule" id="matricule">
-                      </div> -->
                       <div class="field">
                         <label>Poste</label>
                         <input placeholder="Poste" name="poste" id="poste" type="text">
@@ -53,7 +51,7 @@
                         <input placeholder="Pays d'origine" name="pays" id="pays" type="text">
                       </div>
                     <div >
-                        <button class="ui primary button" id="AjouterEmployer" type="submit" value="ajouter" name="ajouter">Ajouter</button>
+                        <input class="ui primary button" id="AjouterEmployer" type="submit" value="Ajouter" name="ajouter">
                         <button class="ui red button" id="anuler" type="reset" value="anuler" name="anuler">Annuler</button>
                     </div>
                     <div>
@@ -77,6 +75,8 @@
                   <th>Télephone</th>
                   <th>Statut marital</th>
                   <th>Pays d'origine</th>
+                  <th>Modifier</th>
+                  <th>Suprimer</th>
               </tr>
           </thead>
           <tbody id="tbody">
@@ -97,6 +97,7 @@
   </div>
    
     <script src="js/all.min.js"></script>
-    <script src="js/script.js"></script>
+    <!-- <script src="js/script.js"></script> -->
+    <script src="js/app.js"></script>
 </body>
 </html>
