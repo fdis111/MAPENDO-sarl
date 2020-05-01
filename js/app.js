@@ -120,7 +120,6 @@ getEmployers();
 // 2 get one employer
 const getOneEmployer = async function (employerId)
 {
-
     try
     {
         const url = `http://167.71.45.243:4000/api/employes/${employerId}?api_key=kewilah`;
