@@ -204,7 +204,7 @@ const updateEmployer = async function (employerId, employerNewInfos)
             {
                 const data = await response.json();
                 getEmployers();
-                console.log(data);
+                // console.log(data);
             }   
     } 
     catch (error) 
