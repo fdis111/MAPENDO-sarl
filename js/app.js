@@ -5,8 +5,9 @@ const formulaire = document.querySelector("form");
 const blockFormulaire = document.querySelector("#formulaire");
 let employerInfos = {};
 const messageErreur = document.querySelector("#erreur");
+const tableauEmployers = document.querySelector("#employersTable");
 const tableau = document.querySelector("tbody");
-// --------------------------------------------------------------------------------------------------------------------------------
+
 
 // les evenements de base
 
@@ -14,17 +15,22 @@ btnAjouter.addEventListener("click", function()
 {
     this.style.display = "none";
     blockFormulaire.style.display = "block";
+    tableauEmployers.style.display = "none";
 })
 
 btnanuler.addEventListener("click", function()
 {
     blockFormulaire.style.display = "none";
     btnAjouter.style.display = "block";
+    tableauEmployers.style.display = "block";
+    messageErreur.innerHTML = "";
     // formulaire.reset();
 })
 
 
-// les fonctions 
+// les fonctions
+
+
 // recuper la longeur d'un objet
 const tailleObjet = function(obj) {
     let taille = 0; 
@@ -34,7 +40,7 @@ const tailleObjet = function(obj) {
     }
     return taille;
 };
-
+// preremplir le formulaire en cas de modification
 const preremplirFormulaire = function(data)
 {
       formulaire.elements.nom.value = data.nom;
@@ -42,15 +48,14 @@ const preremplirFormulaire = function(data)
       formulaire.elements.email.value = data.email;
       formulaire.elements.poste.value = data.poste;
       formulaire.elements.telephone.value = data.numeroTelephone;
-      // form.elements.statut.value = element.estMarie == true ? "Marié(e)" : "Celibataire";
+    //   formulaire.elements.statut.value = data.estMarie ? "Marié(e)" : "Celibataire";
       formulaire.elements.pays.value = data.pays;
       formulaire.elements._id.value = data._id;
       formulaire.elements.ajouter.value = "Modifier";
       blockFormulaire.style.display = "block";
-
 }
 
-// -------------------------------------------------------------------------------------------------------------------------------------
+
 // les requtes ajax
 
 
@@ -69,7 +74,6 @@ const getEmployers = async function ()
             for (user of data)
             {
                 const ligne = document.createElement("tr");
-
                 ligne.innerHTML = `
                 <td>${user.nom}</td>
                 <td>${user.prenom}</td>
@@ -86,11 +90,10 @@ const getEmployers = async function ()
                 const modifier = document.getElementById(`edit-${user._id}`)
                 const id = user._id;
                 const EmployerAmodifier = user;
-                // const modifier = document.getElementById(`edit-${user._id}`);
                 supprimer.addEventListener("click", function(e)
                 {
                     e.preventDefault();
-                    const confirmer = confirm("voulez vous supprimer?");
+                    const confirmer = confirm(`voulez vous supprimer ${EmployerAmodifier.nom} ${EmployerAmodifier.prenom}`);
                     if (confirmer) 
                     {
                         deleteEmployer(id);
@@ -99,15 +102,10 @@ const getEmployers = async function ()
                 modifier.addEventListener("click", function(e)
                 {
                     e.preventDefault();
-                    console.log(EmployerAmodifier);
-                    
                     preremplirFormulaire(EmployerAmodifier);
+                    tableauEmployers.style.display = "none";
                 })
             }
-             
-
-            
-            
         }  
     } 
     catch (error) 
@@ -167,7 +165,8 @@ const addEmployer = async function (employer)
         if (response.ok) 
         {
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
+            getEmployers();
         }   
     } 
     catch (error) 
@@ -204,6 +203,7 @@ const updateEmployer = async function (employerId, employerNewInfos)
             if (response.ok) 
             {
                 const data = await response.json();
+                getEmployers();
                 console.log(data);
             }   
     } 
@@ -223,7 +223,7 @@ const deleteEmployer = async function (employerId)
         if (response.ok) 
         {
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             getEmployers()
         }  
     } 
@@ -324,19 +324,14 @@ formulaire.addEventListener("submit", function (e)
         else
         {
             updateEmployer(employerInfos._id, employerInfos);
-            // console.log("tijjffjjfjff");
-            formulaire.reset()
-            
         }
         
         console.log("formulaire envoyer");
         formulaire.reset();
         blockFormulaire.style.display = "none";
+        tableauEmployers.style.display = "block";
         btnAjouter.style.display = "block";
     }
-    
-    
-    
     e.preventDefault();    
 })
 

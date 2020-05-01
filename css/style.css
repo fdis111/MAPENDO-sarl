@@ -36,39 +36,6 @@ td
     color: rgba(0, 0, 255, 0.527);
     padding: 10px;
 }
-#modale
-{
-    height: 100%;
-    width: 100%;
-    background-color: black;
-    opacity: 0.6;
-    position: fixed;
-    top: 0;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    
-}
-#modale-content
-{
-    background-color: silver;
-    width: 400px;
-    height: 200px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    position: relative;
-    /* box-shadow: 10px 10px 5px 0px rgb(51, 51, 51); */
-
-}
-#quiter
-{
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 30px;
-}
-
 #actions{
     text-align: center;
 }
